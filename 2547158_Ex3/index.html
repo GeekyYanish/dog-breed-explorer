@@ -1,0 +1,160 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <title>Book an Appointment</title>
+        <script src="https://cdn.tailwindcss.com"></script>
+        <style>
+            .highlight-label {
+                background-color: #dbeafe; /* Tailwind's blue-100 */
+                border-color: #3b82f6; /* Tailwind's blue-500 */
+                color: #1d4ed8; /* Tailwind's blue-700 */
+            }
+        </style>
+    </head>
+    <body class="bg-gray-100 min-h-screen flex items-center justify-center p-6">
+        <main class="w-full max-w-xl bg-white p-6 rounded-2xl shadow-lg">
+            <h1 class="text-2xl font-bold mb-4 text-gray-800">
+                Book an Appointment
+            </h1>
+
+            <form id="customForm" class="space-y-4">
+                <!-- For Full Name -->
+                <div>
+                    <label
+                        for="fullName"
+                        class="block font-medium text-gray-700"
+                        >Full Name</label
+                    >
+                    <input
+                        type="text"
+                        id="fullName"
+                        name="fullName"
+                        required
+                        class="mt-1 w-full p-2 border rounded-md focus:outline-none focus:ring focus:ring-blue-300"
+                    />
+                </div>
+
+                <!-- For Email -->
+                <div>
+                    <label for="email" class="block font-medium text-gray-700"
+                        >Email</label
+                    >
+                    <input
+                        type="email"
+                        id="email"
+                        name="email"
+                        required
+                        class="mt-1 w-full p-2 border rounded-md focus:outline-none focus:ring focus:ring-blue-300"
+                    />
+                </div>
+
+                <!-- For Symptoms -->
+                <div>
+                    <label
+                        for="domainField"
+                        class="block font-medium text-gray-700"
+                        >Symptoms</label
+                    >
+                    <textarea
+                        id="domainField"
+                        name="domainField"
+                        rows="3"
+                        placeholder="Describe your symptoms"
+                        class="mt-1 w-full p-2 border rounded-md focus:outline-none focus:ring focus:ring-blue-300"
+                    ></textarea>
+                </div>
+
+                <!-- Preferred Time -->
+                <fieldset>
+                    <legend class="block font-medium text-gray-700 mb-2">
+                        Preferred Time
+                    </legend>
+                    <div class="flex flex-col gap-2">
+                        <label
+                            class="flex items-center gap-2 p-2 border rounded-md hover:bg-blue-50"
+                        >
+                            <input
+                                type="radio"
+                                name="preferredTime"
+                                value="Morning"
+                                class="radio-btn"
+                            />
+                            Morning
+                        </label>
+                        <label
+                            class="flex items-center gap-2 p-2 border rounded-md hover:bg-blue-50"
+                        >
+                            <input
+                                type="radio"
+                                name="preferredTime"
+                                value="Afternoon"
+                                class="radio-btn"
+                            />
+                            Afternoon
+                        </label>
+                        <label
+                            class="flex items-center gap-2 p-2 border rounded-md hover:bg-blue-50"
+                        >
+                            <input
+                                type="radio"
+                                name="preferredTime"
+                                value="Evening"
+                                class="radio-btn"
+                            />
+                            Evening
+                        </label>
+                    </div>
+                </fieldset>
+
+                <button
+                    type="submit"
+                    class="w-full bg-red-600 text-white py-2 rounded-md hover:bg-blue-700 transition"
+                >
+                    Submit
+                </button>
+            </form>
+
+            <!-- Output Box -->
+            <div
+                id="output"
+                class="mt-6 hidden p-4 border-l-4 border-blue-600 bg-blue-50 rounded shadow"
+            ></div>
+        </main>
+
+        <script>
+            const form = document.getElementById('customForm');
+            const output = document.getElementById('output');
+
+            form.addEventListener('submit', function (e) {
+                e.preventDefault();
+
+                const fullName = document.querySelector('#fullName').value;
+                const email = document.querySelector('#email').value;
+                const domainField =
+                    document.querySelector('#domainField').value;
+                const preferredTime =
+                    document.querySelector(
+                        'input[name="preferredTime"]:checked'
+                    )?.value || 'Not selected';
+
+                // Highlight selected radios
+                document.querySelectorAll('.radio-btn').forEach((input) => {
+                    input.parentElement.classList.remove('highlight-label');
+                    if (input.checked)
+                        input.parentElement.classList.add('highlight-label');
+                });
+
+                output.innerHTML = `<h2 class="text-lg font-semibold text-blue-800 mb-2">Submitted Data:</h2>
+                    <ul class="list-disc list-inside text-blue-700 space-y-1">
+                      <li><strong>Full Name:</strong> ${fullName}</li>
+                      <li><strong>Email:</strong> ${email}</li>
+                      <li><strong>Symptoms:</strong> ${domainField}</li>
+                      <li><strong>Preferred Time:</strong> ${preferredTime}</li>
+                    </ul>`;
+                output.classList.remove('hidden');
+            });
+        </script>
+    </body>
+</html>

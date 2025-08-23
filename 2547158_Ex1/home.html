@@ -1,0 +1,308 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <!-- Basic meta settings for character encoding and responsiveness -->
+        <meta charset="UTF-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+        <!-- Page title -->
+        <title>Dashboard - CryptoX</title>
+
+        <!-- Tailwind CSS CDN -->
+        <script src="https://cdn.tailwindcss.com"></script>
+
+        <!-- Internal CSS styles -->
+        <style>
+            /* General body styling */
+            body {
+                margin: 0;
+                font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+                background-color: #f9fafb;
+            }
+
+            /* Header styling */
+            header {
+                background-color: #fff;
+                padding: 1rem 2rem;
+                display: flex;
+                justify-content: space-between;
+                align-items: center;
+                border-bottom: 1px solid #e5e7eb;
+            }
+
+            /* Navigation link styles */
+            header .nav-links a {
+                margin-left: 1rem;
+                text-decoration: none;
+                color: #374151;
+                font-weight: 500;
+            }
+
+            /* Logout button style */
+            .logout-btn {
+                padding: 8px 16px;
+                background-color: #e5e7eb;
+                border: none;
+                border-radius: 6px;
+                cursor: pointer;
+            }
+
+            /* Main content container */
+            .container {
+                max-width: 1100px;
+                margin: 2rem auto;
+                padding: 0 1rem;
+            }
+
+            /* Dashboard cards container */
+            .dashboard-summary {
+                display: flex;
+                gap: 1rem;
+                margin-bottom: 2rem;
+            }
+
+            /* Individual summary cards */
+            .card {
+                flex: 1;
+                background: white;
+                border-radius: 8px;
+                padding: 1.5rem;
+                box-shadow: 0 1px 2px rgba(0, 0, 0, 0.05);
+            }
+
+            /* Card titles */
+            .card h3 {
+                margin: 0 0 0.5rem;
+            }
+
+            /* Green and red text styling for profit/loss */
+            .green {
+                color: #16a34a;
+            }
+
+            .red {
+                color: #dc2626;
+            }
+
+            /* Primary action button */
+            .primary-btn {
+                background-color: #2563eb;
+                color: white;
+                padding: 10px 20px;
+                border: none;
+                border-radius: 6px;
+                cursor: pointer;
+            }
+
+            /* Secondary action button */
+            .secondary-btn {
+                padding: 10px 20px;
+                border: 1px solid #d1d5db;
+                border-radius: 6px;
+                background-color: #f9fafb;
+            }
+
+            /* Table styles for market overview */
+            table {
+                width: 100%;
+                border-collapse: collapse;
+                background-color: white;
+                border-radius: 8px;
+                overflow: hidden;
+            }
+
+            /* Table cell styling */
+            th,
+            td {
+                padding: 1rem;
+                text-align: left;
+                border-bottom: 1px solid #e5e7eb;
+            }
+
+            /* Table header color */
+            th {
+                color: #6b7280;
+            }
+
+            /* Positive price change tag */
+            .price-up {
+                color: #22c55e;
+                background: #dcfce7;
+                padding: 4px 8px;
+                border-radius: 6px;
+                font-size: 0.875rem;
+            }
+
+            /* Negative price change tag */
+            .price-down {
+                color: #ef4444;
+                background: #fee2e2;
+                padding: 4px 8px;
+                border-radius: 6px;
+                font-size: 0.875rem;
+            }
+
+            /* Trade button */
+            .trade-btn {
+                background-color: #f3f4f6;
+                padding: 8px 14px;
+                border-radius: 6px;
+                border: 1px solid #e5e7eb;
+                cursor: pointer;
+            }
+
+            /* Hover effect on trade button */
+            .trade-btn:hover {
+                background-color: #38bdf8;
+                color: #000;
+            }
+
+            /* Highlight card with blue background */
+            .highlight-card {
+                background-color: #2563eb;
+                color: white;
+            }
+        </style>
+
+        <!-- Logout function: redirects to login page -->
+        <script>
+            function logout() {
+                window.location.href = 'login.html';
+            }
+        </script>
+    </head>
+
+    <body>
+        <!-- Header section with logo, navigation links and logout button -->
+        <header>
+            <div class="logo">
+                <a href="../2547158_Ex2/lab2.html" class="no-underline"
+                    ><strong style="font-size: 1.25rem">🔷 CryptoX</strong></a
+                >
+            </div>
+            <nav>
+                <div class="nav-links">
+                    <a href="home.html" class="nav-link" id="home-link">Home</a>
+                    <a href="about.html" class="nav-link" id="about-link"
+                        >About</a
+                    >
+                    <a href="contact.html" class="nav-link" id="contact-link"
+                        >Contact</a
+                    >
+                    <button class="logout-btn" onclick="logout()">
+                        Logout
+                    </button>
+                </div>
+            </nav>
+        </header>
+
+        <!-- Main dashboard content -->
+        <div class="container">
+            <h1>Dashboard</h1>
+            <p>Welcome back, here's your trading summary.</p>
+
+            <!-- Summary cards showing key trading info -->
+            <div class="dashboard-summary">
+                <!-- Total balance -->
+                <div class="card">
+                    <h3>Total Balance</h3>
+                    <p style="font-size: 1.5rem; font-weight: bold">
+                        $125,430.20
+                    </p>
+                    <p>+5.2% from last month</p>
+                </div>
+
+                <!-- Today's profit and loss -->
+                <div class="card">
+                    <h3>Today's P&L</h3>
+                    <p
+                        class="green"
+                        style="font-size: 1.5rem; font-weight: bold"
+                    >
+                        + $1,234.56
+                    </p>
+                    <p>Compared to yesterday</p>
+                </div>
+
+                <!-- Market analysis feature (dummy button) -->
+                <div class="card">
+                    <h3>Market Analysis</h3>
+                    <p>Run a heavy computation in a background thread.</p>
+                    <button class="primary-btn">Run Analysis</button>
+                </div>
+
+                <!-- Quick action card to start trading (dummy button) -->
+                <div class="card highlight-card">
+                    <h3>Start Trading</h3>
+                    <p>Ready to make a move?</p>
+                    <button class="secondary-btn text-black">New Trade</button>
+                </div>
+            </div>
+
+            <!-- Market overview section with a table -->
+            <div class="card">
+                <h2>Market Overview</h2>
+                <p>Live prices for top cryptocurrencies.</p>
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Asset</th>
+                            <th>Price</th>
+                            <th>24h Change</th>
+                            <th>Actions</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <!-- Bitcoin Row -->
+                        <tr>
+                            <td>
+                                <strong>🟧 Bitcoin</strong><br /><small
+                                    >BTC</small
+                                >
+                            </td>
+                            <td>$68,450.00</td>
+                            <td><span class="price-up">+1.25%</span></td>
+                            <td><button class="trade-btn">Trade</button></td>
+                        </tr>
+
+                        <!-- Ethereum Row -->
+                        <tr>
+                            <td>
+                                <strong>⬛ Ethereum</strong><br /><small
+                                    >ETH</small
+                                >
+                            </td>
+                            <td>$3,560.50</td>
+                            <td><span class="price-down">-0.75%</span></td>
+                            <td><button class="trade-btn">Trade</button></td>
+                        </tr>
+
+                        <!-- Solana Row -->
+                        <tr style="background-color: #f9fafb">
+                            <td>
+                                <strong>🟦 Solana</strong><br /><small
+                                    >SOL</small
+                                >
+                            </td>
+                            <td>$150.20</td>
+                            <td><span class="price-up">+3.40%</span></td>
+                            <td><button class="trade-btn">Trade</button></td>
+                        </tr>
+
+                        <!-- USD Coin Row -->
+                        <tr>
+                            <td>
+                                <strong>🟦 USD Coin</strong><br /><small
+                                    >USDC</small
+                                >
+                            </td>
+                            <td>$1.00</td>
+                            <td><span class="price-up">+0.01%</span></td>
+                            <td><button class="trade-btn">Trade</button></td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </body>
+</html>

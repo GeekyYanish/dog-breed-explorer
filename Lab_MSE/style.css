@@ -1,0 +1,64 @@
+/* Coffee Card Component */
+.coffee-card {
+    background-color: #ffffff;
+    border-radius: 0.5rem;
+    margin-top: 1rem;
+
+}
+
+.form-input {
+    width: 100%;
+    padding: 0.5rem;
+    border: 1px solid black;
+}
+
+.btn-submit {
+    width: 100%;
+    background-color: #ea580c;
+    color: #ffffff;
+    font-weight: 700;
+    padding: 0.5rem 1rem;
+    border-radius: 0.375rem;
+    box-shadow: 0 0 0 2px #f97316;
+}
+
+/* Greeting Box */
+.greeting-box {
+    padding: 1rem;
+    background-color: #ffedd5;
+    margin-bottom: 2rem;
+}
+
+/* Search and Sort Controls Component */
+.search-controls {
+    display: flex;
+    gap: 1rem;
+    margin-bottom: 2rem;
+    padding: 1rem;
+    border-radius: 0.5rem;
+    box-shadow: 0 1px 3px 0 rgb(0 0 0 / 0.1), 0 1px 2px -1px rgb(0 0 0 / 0.1);
+    /* shadow */
+}
+
+/* Responsive layout for search controls */
+@media (max-width: 767px) {
+
+    .search-controls {
+        flex-direction: column;
+    }
+
+    .search-actions {
+        flex-direction: column;
+    }
+}
+
+/* Styles for the search elements */
+.btn-search:hover {
+    background-color: #c2410c;
+    border: black;
+}
+
+.btn-search:focus {
+    outline: none;
+    box-shadow: 0 0 0 2px rgba(249, 115, 22, 0.5);
+}

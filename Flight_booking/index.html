@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Flight Booking System</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script defer src="script.js"></script>
+</head>
+<body class="bg-gray-100 p-6">
+
+  <h1 class="text-3xl font-bold text-center text-blue-600 mb-6">
+    ✈ Flight Booking & Upload System
+  </h1>
+
+  <!-- View Flights -->
+  <section class="bg-white shadow-lg rounded-lg p-6 mb-6">
+    <h2 class="text-xl font-semibold mb-4">Available Flights</h2>
+    <button onclick="loadFlights()" class="bg-green-500 hover:bg-green-600 text-white px-4 py-2 rounded mb-4">Load Flights</button>
+    <table class="w-full text-left border-collapse">
+      <thead>
+        <tr class="bg-gray-200">
+          <th class="p-2">ID</th>
+          <th class="p-2">Flight Number</th>
+          <th class="p-2">Destination</th>
+          <th class="p-2">Departure Time</th>
+          <th class="p-2">Seats</th>
+        </tr>
+      </thead>
+      <tbody id="flightsTable"></tbody>
+    </table>
+  </section>
+
+  <!-- Add Flight -->
+  <section class="bg-white shadow-lg rounded-lg p-6 mb-6">
+    <h2 class="text-xl font-semibold mb-4">Add New Flight</h2>
+    <form id="addFlightForm" class="space-y-4">
+      <input type="text" id="flight_number" placeholder="Flight Number" class="border p-2 w-full rounded" required>
+      <input type="text" id="destination" placeholder="Destination" class="border p-2 w-full rounded" required>
+      <input type="datetime-local" id="departure_time" class="border p-2 w-full rounded" required>
+      <input type="number" id="seats" placeholder="Number of Seats" class="border p-2 w-full rounded" required>
+      <button class="bg-blue-500 hover:bg-blue-600 text-white px-4 py-2 rounded">Add Flight</button>
+    </form>
+  </section>
+
+  <!-- Book Flight -->
+  <section class="bg-white shadow-lg rounded-lg p-6 mb-6">
+    <h2 class="text-xl font-semibold mb-4">Book a Flight</h2>
+    <form id="bookFlightForm" class="space-y-4">
+      <input type="number" id="flight_id" placeholder="Flight ID" class="border p-2 w-full rounded" required>
+      <input type="number" id="passenger_id" placeholder="Passenger ID" class="border p-2 w-full rounded" required>
+      <button class="bg-purple-500 hover:bg-purple-600 text-white px-4 py-2 rounded">Book Flight</button>
+    </form>
+  </section>
+
+  <!-- Upload Document -->
+  <section class="bg-white shadow-lg rounded-lg p-6">
+    <h2 class="text-xl font-semibold mb-4">Upload Document</h2>
+    <form id="uploadForm" enctype="multipart/form-data" class="space-y-4">
+      <input type="text" name="name" id="name" placeholder="File Name" class="border p-2 w-full rounded" required>
+      <input type="file" name="document" id="document" class="border p-2 w-full rounded" required>
+      <button class="bg-red-500 hover:bg-red-600 text-white px-4 py-2 rounded">Upload</button>
+    </form>
+  </section>
+
+</body>
+</html>

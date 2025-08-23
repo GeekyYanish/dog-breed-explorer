@@ -1,0 +1,230 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>About - CryptoX</title>
+
+    <!-- Internal CSS styling -->
+    <style>
+        /* General body styling */
+        body {
+            margin: 0;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background-color: #f9fafb;
+            color: #1f2937;
+        }
+
+        /* Header bar */
+        header {
+            background-color: #fff;
+            padding: 1rem 2rem;
+            border-bottom: 1px solid #e5e7eb;
+        }
+
+        /* Navigation layout */
+        nav {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        /* Navigation links */
+        nav .nav-links a {
+            margin-left: 1rem;
+            text-decoration: none;
+            color: #374151;
+            font-weight: 500;
+        }
+
+        /* Logout button styling */
+        .logout-btn {
+            padding: 8px 16px;
+            background-color: #e5e7eb;
+            border: none;
+            border-radius: 6px;
+            cursor: pointer;
+        }
+
+        /* Main content container */
+        .container {
+            max-width: 1100px;
+            margin: 2rem auto;
+            padding: 0 1rem;
+        }
+
+        /* Heading styling */
+        h1 {
+            display: flex;
+            justify-content: center;
+        }
+
+        /* Introductory paragraph */
+        p.lead {
+            font-size: 1.2rem;
+            color: #6b7280;
+            text-align: center;
+        }
+
+        /* About section layout */
+        .about-section {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 2rem;
+            margin-top: 2rem;
+        }
+
+        /* Mission text block */
+        .text-content {
+            flex: 2;
+        }
+
+        /* Placeholder for image */
+        .image-placeholder {
+            flex: 1;
+            background-color: #e5e7eb;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.5rem;
+            border-radius: 3px;
+            min-height: 100px;
+        }
+
+        /* Location (map) section styling */
+        .location-section {
+            text-align: center;
+            margin-top: 4rem;
+        }
+
+        /* Google Maps iframe container */
+        .hq-image {
+            background-color: #e5e7eb;
+            border-radius: 8px;
+            font-size: 3rem;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 300px;
+            position: relative;
+        }
+
+        /* Coordinates text styling */
+        .coordinates {
+            font-weight: bold;
+            margin-top: 1rem;
+        }
+
+        /* Supporting text below coordinates */
+        .location-description {
+            color: #6b7280;
+        }
+
+        /* Button container for location */
+        .location-button {
+            margin-top: 1rem;
+        }
+
+        /* Show location button styling */
+        .location-button button {
+            padding: 10px 20px;
+            font-size: 1rem;
+            cursor: pointer;
+            background-color: #3b82f6;
+            color: white;
+            border: none;
+            border-radius: 5px;
+        }
+    </style>
+
+    <!-- External JS files for geolocation and logout functionality -->
+    <script src="scripts/geolocation.js"></script>
+    <script src="scripts/about.js"></script>
+</head>
+
+<body>
+    <!-- Header with navigation -->
+    <header>
+        <nav>
+            <div class="logo">
+                <!-- Brand logo/title -->
+                <strong style="font-size: 1.25rem;">🔷 CryptoX</strong>
+            </div>
+            <nav>
+                <div class="nav-links">
+                    <!-- Navigation links -->
+                    <a href="home.html" class="nav-link" id="home-link">Home</a>
+                    <a href="about.html" class="nav-link" id="about-link">About</a>
+                    <a href="contact.html" class="nav-link" id="contact-link">Contact</a>
+                    <!-- Logout button -->
+                    <button class="logout-btn" onclick="logout()">Logout</button>
+                </div>
+            </nav>
+        </nav>
+    </header>
+
+    <!-- Main container for About content -->
+    <div class="container">
+        <!-- Page title -->
+        <h1 style="font-size: 2.5rem; font-weight: bold;">About CryptoX</h1>
+
+        <!-- Short intro paragraph -->
+        <p class="lead">
+            Your centralized hub for seamless and secure cryptocurrency trading. We are dedicated to
+            providing a world-class experience for traders of all levels.
+        </p>
+
+        <!-- Section with mission and image -->
+        <div class="about-section">
+            <!-- Textual mission content -->
+            <div class="text-content">
+                <h2>Our Mission</h2>
+                <p>
+                    At CryptoX, our mission is to democratize access to the digital economy. We provide a powerful,
+                    user-friendly platform that empowers both novice and experienced traders to navigate the crypto
+                    markets with confidence. We are committed to security, transparency, and innovation.
+                </p>
+                <p>
+                    We believe in a future where financial services are open and accessible to everyone. By simplifying
+                    the complexities of crypto trading, we aim to be at the forefront of this financial revolution,
+                    providing our users with the tools they need to succeed.
+                </p>
+            </div>
+
+            <!-- Image on the right side -->
+            <aside
+                style="flex: 1; background-color: #e5e7eb; border-radius: 4px; min-height: 100px; display: flex; justify-content: center; align-items: center;">
+                <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRvZlpuenl5bWMwX9f-AZ4Mv2MlkH2bt9RFLg&s"
+                    alt="Crypto" style="max-width: 90%; border-radius: 8px;" />
+            </aside>
+        </div>
+
+        <!-- Location section with Google Map and geolocation -->
+        <div class="location-section">
+            <h2>Our Headquarters</h2>
+            <div class="hq-image">
+                <!-- Embedded Google Map iframe (source will be set by JS) -->
+                <iframe id="map-frame" width="100%" height="100%" style="border:0; border-radius: 8px;" loading="lazy"
+                    allowfullscreen></iframe>
+            </div>
+
+            <!-- Button to trigger geolocation -->
+            <div class="location-button">
+                <button onclick="showLocation()">Show Location</button>
+            </div>
+
+            <!-- Coordinates display -->
+            <div class="coordinates" id="coordinates">
+                Click the button to show your location...
+            </div>
+
+            <!-- Description text -->
+            <p class="location-description">
+                We're located in the heart of the tech district, fostering innovation and collaboration.
+            </p>
+        </div>
+    </div>
+</body>
+
+</html>

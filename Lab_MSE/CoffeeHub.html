@@ -1,0 +1,221 @@
+<!DOCTYPE html>
+<html lang="en" class="scroll-smooth">
+    <head>
+        <meta charset="UTF-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <title>CoffeeHub - Explore Hot Coffees</title>
+
+        <script src="https://cdn.tailwindcss.com"></script>
+
+        <link rel="stylesheet" href="style.css" />
+
+        <link
+            rel="stylesheet"
+            href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css"
+            integrity="sha512-DTOQO9RWCH3ppGqcWaEA1BIZOC6xxalwEsw9c2QQeAIftl+Vegovlnee1c9QX4TctnWMn13TZye+giMm8e2LwA=="
+            crossorigin="anonymous"
+            referrerpolicy="no-referrer"
+        />
+    </head>
+
+    <body class="bg-gray-100 font-sans">
+        <!-- Header & Navigation -->
+        <header class="bg-white shadow-md sticky top-0 z-50">
+            <nav
+                class="container mx-auto px-6 py-3 flex justify-between items-center"
+            >
+                <a href="#" class="text-2xl font-bold text-gray-800"
+                    >CoffeeHub</a
+                >
+                <div class="flex space-x-4">
+                    <a
+                        href="#home"
+                        class="text-gray-600 hover:text-orange-700"
+                        title="Home"
+                        ><i class="fas fa-home"></i
+                        ><span class="hidden md:inline ml-1">Home</span></a
+                    >
+                    <a
+                        href="#menu"
+                        class="text-gray-600 hover:text-orange-700"
+                        title="Menu"
+                        ><i class="fas fa-coffee"></i
+                        ><span class="hidden md:inline ml-1">Menu</span></a
+                    >
+                    <a
+                        href="#feedback"
+                        class="text-gray-600 hover:text-orange-700"
+                        title="Feedback"
+                        ><i class="fas fa-address-card"></i
+                        ><span class="hidden md:inline ml-1">Feedback</span></a
+                    >
+                </div>
+            </nav>
+        </header>
+
+        <main class="container mx-auto px-6 py-8">
+            <section id="greeting-section" class="greeting-box hidden">
+                <p id="greeting-message"></p>
+            </section>
+
+            <!-- Hero Section -->
+            <section
+                id="home"
+                class="text-center py-16 bg-white rounded-lg shadow-lg"
+            >
+                <h1 class="text-5xl font-extrabold text-gray-800">
+                    Welcome to CoffeeHub
+                </h1>
+                <p class="mt-4 text-lg text-gray-600">
+                    Your ultimate destination to explore the world of hot
+                    coffee.Freshly Brewed
+                </p>
+            </section>
+
+            <!-- Media Section: Video and Audio -->
+            <section id="media" class="my-12 p-8 bg-white rounded-lg shadow-lg">
+                <h2 class="text-3xl font-bold text-center mb-8 text-gray-800">
+                    Learn About Coffee
+                </h2>
+                <div class="flex flex-col md:flex-row gap-8 items-center">
+                    <!-- Video Player -->
+                    <div class="w-full md:w-1/2">
+                        <h3 class="text-2xl font-semibold mb-4 text-gray-700">
+                            Brewing Perfection
+                        </h3>
+                        <video class="w-full rounded-lg shadow-md" controls>
+                            <source src="/Lab_MSE/Set2 Video.mp4" type="video/mp4" />
+                            <track
+                                src="/Lab_MSE/subtitle.vtt.txt"
+                                kind="subtitles"
+                                srclang="en"
+                                label="English"
+                            />
+                            Your browser does not support the video tag.
+                        </video>
+                    </div>
+                    <!-- Audio Player -->
+                    <div class="w-full md:w-1/2">
+                        <h3 class="text-2xl font-semibold mb-4 text-gray-700">
+                            Types of Coffee
+                        </h3>
+                        <audio class="w-full" controls>
+                            <source src="/Set2 Audio.mp3" type="audio/mpeg" />
+                            Your browser does not support the audio element.
+                        </audio>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Coffee Menu Section -->
+            <section id="menu" class="my-12">
+                <h2 class="text-3xl font-bold text-center mb-8 text-gray-800">
+                    Our Coffee Menu
+                </h2>
+
+                <!-- Search and Sort Controls -->
+                <div class="search-controls">
+                    <input
+                        type="text"
+                        id="searchInput"
+                        placeholder="Search by coffee name..."
+                        class="search-input"
+                    />
+                    <div class="search-actions">
+                        <select id="sortDropdown" class="sort-select" title="Sort_by_Name">
+                            <option value="asc">Sort by Name (A-Z)</option>
+                            <option value="desc">Sort by Name (Z-A)</option>
+                        </select>
+                        <button id="searchButton" class="btn-search border rounded" type="button">
+                            Search
+                        </button>
+                    </div>
+                </div>
+
+                <!-- Coffee Items Container -->
+                <div
+                    id="coffee-container"
+                    class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-8"
+                >
+                    <!-- Coffee items will be injected here by JavaScript -->
+                </div>
+            </section>
+
+            <!-- Feedback Form -->
+            <section
+                id="feedback"
+                class="my-12 p-8 bg-white rounded-lg shadow-lg"
+            >
+                <h2 class="text-3xl font-bold text-center mb-8 text-gray-800">
+                    Give Us Your Feedback
+                </h2>
+                <form id="feedbackForm" class="max-w-lg mx-auto">
+                    <div class="mb-4">
+                        <label
+                            for="name"
+                            class="block text-gray-700 font-bold mb-2"
+                            >Name:</label
+                        >
+                        <input
+                            type="text"
+                            id="name"
+                            name="name"
+                            class="form-input"
+                            required
+                        />
+                    </div>
+                    <div class="mb-4">
+                        <label
+                            for="email"
+                            class="block text-gray-700 font-bold mb-2"
+                            >Email:</label
+                        >
+                        <input
+                            type="email"
+                            id="email"
+                            name="email"
+                            class="form-input"
+                            required
+                        />
+                    </div>
+                    <div class="mb-6">
+                        <label
+                            for="favoriteCoffee"
+                            class="block text-gray-700 font-bold mb-2"
+                            >Favorite Coffee:</label
+                        >
+                        <input
+                            type="text"
+                            id="favoriteCoffee"
+                            name="favoriteCoffee"
+                            class="form-input"
+                            required
+                        />
+                    </div>
+                    <div class="text-center">
+                        <button type="submit" class="btn-submit">Submit</button>
+                    </div>
+                </form>
+            </section>
+
+            <footer
+                class="mt-12 p-8 bg-gray-800 text-white rounded-lg shadow-lg"
+            >
+                <h2 class="text-2xl font-bold text-center mb-6">
+                    User Information
+                </h2>
+                <div class="text-center space-y-4">
+                    <div>
+                        <h3 class="font-semibold">Your Location (approx.):</h3>
+                        <p id="location-info">Requesting location...</p>
+                    </div>
+                </div>
+                <div class="text-center text-gray-400 mt-8">
+                    <p>&copy; 2024 CoffeeHub. All Rights Reserved.</p>
+                </div>
+            </footer>
+        </main>
+
+        <script src="script.js"></script>
+    </body>
+</html>

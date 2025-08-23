@@ -1,0 +1,203 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="utf-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1" />
+        <title>CryptoX - Client</title>
+        <!-- Tailwind Play CDN for quick prototyping -->
+        <script src="https://cdn.tailwindcss.com"></script>
+    </head>
+    <body class="bg-slate-50 min-h-screen p-6">
+        <div class="max-w-5xl mx-auto">
+            <header class="flex items-center justify-between mb-6">
+                <h1 class="text-2xl font-bold">CryptoX — Market Explorer</h1>
+                <div class="text-sm text-gray-600">
+                    API: <span id="api-url">http://localhost:3000/api</span>
+                </div>
+            </header>
+
+            <section class="bg-white rounded-2xl shadow p-4 mb-6">
+                <form
+                    id="filterForm"
+                    class="grid grid-cols-1 md:grid-cols-4 gap-3"
+                >
+                    <input
+                        id="itemInput"
+                        type="text"
+                        placeholder="Search by name or symbol (e.g. BTC)"
+                        class="p-2 border rounded"
+                    />
+                    <input
+                        id="minPrice"
+                        type="number"
+                        step="any"
+                        placeholder="Min price"
+                        class="p-2 border rounded"
+                    />
+                    <input
+                        id="maxPrice"
+                        type="number"
+                        step="any"
+                        placeholder="Max price"
+                        class="p-2 border rounded"
+                    />
+
+                    <div class="flex gap-2">
+                        <select id="sortBy" class="p-2 border rounded flex-1" title="Sort By">
+                            <option value="">Sort by</option>
+                            <option value="price">Price</option>
+                            <option value="marketCap">Market Cap</option>
+                            <option value="change24h">24h Change</option>
+                        </select>
+
+                        <select id="order" class="p-2 border rounded w-36" title="Order">
+                            <option value="desc">Desc</option>
+                            <option value="asc">Asc</option>
+                        </select>
+                    </div>
+
+                    <div class="md:col-span-4 flex gap-2">
+                        <button
+                            id="applyBtn"
+                            type="button"
+                            class="px-4 py-2 bg-sky-600 text-white rounded"
+                        >
+                            Apply
+                        </button>
+                        <button
+                            id="resetBtn"
+                            type="button"
+                            class="px-4 py-2 border rounded"
+                        >
+                            Reset
+                        </button>
+                        <div
+                            class="ml-auto text-sm text-gray-500 self-center"
+                            id="status"
+                        >
+                            Ready
+                        </div>
+                    </div>
+                </form>
+            </section>
+
+            <section id="results" class="grid gap-4"></section>
+        </div>
+
+        <template id="cardTpl">
+            <div
+                class="bg-white rounded-2xl shadow p-4 flex items-center gap-4"
+            >
+                <div class="w-16 text-center">
+                    <div class="text-lg font-bold symbol">BTC</div>
+                    <div class="text-xs text-gray-500 name">Bitcoin</div>
+                </div>
+                <div class="flex-1 grid grid-cols-3 gap-4">
+                    <div>
+                        <div class="text-xs text-gray-500">Price</div>
+                        <div class="price font-mono">$0</div>
+                    </div>
+                    <div>
+                        <div class="text-xs text-gray-500">24h</div>
+                        <div class="change">0%</div>
+                    </div>
+                    <div>
+                        <div class="text-xs text-gray-500">Market Cap</div>
+                        <div class="marketCap">$0</div>
+                    </div>
+                </div>
+            </div>
+        </template>
+
+        <!-- Footer -->
+        <footer
+            class="bg-white/30 backdrop-blur-md text-gray-800 text-center py-4 rounded-t-2xl"
+        >
+            <p class="text-sm">&copy; 2025 CryptoX. All rights reserved.</p>
+        </footer>
+
+        <script>
+            const API_BASE = 'http://localhost:3000/api';
+
+            const statusEl = document.getElementById('status');
+            const resultsEl = document.getElementById('results');
+            const form = document.getElementById('filterForm');
+
+            const itemInput = document.getElementById('itemInput');
+            const minPrice = document.getElementById('minPrice');
+            const maxPrice = document.getElementById('maxPrice');
+            const sortBy = document.getElementById('sortBy');
+            const order = document.getElementById('order');
+            const applyBtn = document.getElementById('applyBtn');
+            const resetBtn = document.getElementById('resetBtn');
+
+            function buildQuery() {
+                const q = new URLSearchParams();
+                if (itemInput.value.trim())
+                    q.set('item', itemInput.value.trim());
+                if (minPrice.value.trim())
+                    q.set('minPrice', minPrice.value.trim());
+                if (maxPrice.value.trim())
+                    q.set('maxPrice', maxPrice.value.trim());
+                if (sortBy.value) q.set('sortBy', sortBy.value);
+                if (order.value) q.set('order', order.value);
+                return q.toString();
+            }
+
+            async function fetchData() {
+                const qs = buildQuery();
+                const url = qs ? `${API_BASE}?${qs}` : API_BASE;
+                statusEl.textContent = 'Loading...';
+                try {
+                    const res = await fetch(url);
+                    if (!res.ok) throw new Error('Network response was not ok');
+                    const json = await res.json();
+                    renderResults(json.data);
+                    statusEl.textContent = `Found ${json.count} item(s)`;
+                } catch (err) {
+                    console.error(err);
+                    statusEl.textContent = 'Error fetching data';
+                }
+            }
+
+            function renderResults(items) {
+                resultsEl.innerHTML = '';
+                if (!items || items.length === 0) {
+                    resultsEl.innerHTML =
+                        '<div class="text-center text-gray-500">No results</div>';
+                    return;
+                }
+
+                const tpl = document.getElementById('cardTpl');
+                items.forEach((it) => {
+                    const node = tpl.content.cloneNode(true);
+                    node.querySelector('.symbol').textContent = it.symbol;
+                    node.querySelector('.name').textContent = it.name;
+                    node.querySelector('.price').textContent = `$${Number(
+                        it.price
+                    ).toLocaleString(undefined, { maximumFractionDigits: 8 })}`;
+                    node.querySelector(
+                        '.change'
+                    ).textContent = `${it.change24h}%`;
+                    node.querySelector('.marketCap').textContent = `$${Number(
+                        it.marketCap
+                    ).toLocaleString()}`;
+                    resultsEl.appendChild(node);
+                });
+            }
+
+            applyBtn.addEventListener('click', fetchData);
+            resetBtn.addEventListener('click', () => {
+                itemInput.value = '';
+                minPrice.value = '';
+                maxPrice.value = '';
+                sortBy.value = '';
+                order.value = 'desc';
+                fetchData();
+            });
+
+            // Initial load
+            fetchData();
+        </script>
+    </body>
+</html>

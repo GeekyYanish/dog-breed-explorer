@@ -1,0 +1,388 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <title>Document</title>
+        <!-- Tailwind CSS CDN -->
+        <script src="https://cdn.tailwindcss.com"></script>
+
+        <!-- Font Awesome CDN -->
+        <link
+            rel="stylesheet"
+            href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css"
+        />
+    </head>
+    <body class="bg-gray-100">
+        <nav class="bg-white shadow-md">
+            <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+                <div class="flex justify-between h-16 items-center">
+                    <!-- Logo -->
+                    <div class="flex-shrink-0 text-xl font-bold text-blue-600">
+                        <i class="fas fa-coins mr-2"></i> CryptoX
+                    </div>
+
+                    <!-- Desktop Menu -->
+                    <div class="hidden md:flex space-x-6 items-center">
+                        <a
+                            href="../2547158_Ex1/home.html"
+                            class="flex items-center text-gray-700 hover:text-blue-600"
+                        >
+                            <i class="fas fa-house mr-1"></i> Home
+                        </a>
+                        <a
+                            href="#"
+                            class="flex items-center text-gray-700 hover:text-blue-600"
+                        >
+                            <i class="fas fa-user mr-1"></i> User
+                        </a>
+                        <a
+                            href="#"
+                            class="flex items-center text-gray-700 hover:text-blue-600"
+                        >
+                            <i class="fas fa-wallet mr-1"></i> Wallet
+                        </a>
+                        <a
+                            href="../2547158_Ex1/contact.html"
+                            class="flex items-center text-gray-700 hover:text-blue-600"
+                        >
+                            <i class="fas fa-envelope mr-1"></i> Contact
+                        </a>
+                    </div>
+
+                    <!-- Mobile menu button -->
+                    <div class="md:hidden">
+                        <button
+                            id="menu-toggle"
+                            class="text-gray-700 focus:outline-none text-2xl"
+                        >
+                            <i class="fas fa-bars"></i>
+                        </button>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Mobile Menu Items -->
+            <div id="mobile-menu" class="md:hidden hidden px-4 pb-4">
+                <a
+                    href="../2547158_Ex1/home.html"
+                    class="block py-2 text-gray-700 hover:text-blue-600"
+                >
+                    <i class="fas fa-house mr-2"></i> Home
+                </a>
+                <a
+                    href="#"
+                    class="block py-2 text-gray-700 hover:text-blue-600"
+                >
+                    <i class="fas fa-map-marker-alt mr-2"></i> Places
+                </a>
+                <a
+                    href="#"
+                    class="block py-2 text-gray-700 hover:text-blue-600"
+                >
+                    <i class="fas fa-image mr-2"></i> Gallery
+                </a>
+                <a
+                    href="../2547158_Ex1/contact.html"
+                    class="block py-2 text-gray-700 hover:text-blue-600"
+                >
+                    <i class="fas fa-envelope mr-2"></i> Contact
+                </a>
+            </div>
+        </nav>
+
+        <!-- Hero Section -->
+        <section
+            class="relative h-screen bg-cover bg-center"
+            style="
+                background-image: url('/FSD_class/2547158_Ex2/images/hero.jpeg');
+            "
+        >
+            <div
+                class="absolute inset-0 bg-black bg-opacity-60 flex items-center justify-center"
+            >
+                <div class="text-center text-white px-4">
+                    <h1 class="text-4xl sm:text-5xl lg:text-6xl font-bold mb-4">
+                        Trade Smarter with CryptoX
+                    </h1>
+                    <p class="text-lg sm:text-xl max-w-xl mx-auto mb-6">
+                        Start trading Bitcoin, Ethereum and other
+                        cryptocurrencies on a secure, user-friendly platform.
+                    </p>
+                    <a
+                        href="#start-trading"
+                        class="inline-block bg-blue-600 hover:bg-blue-700 text-white font-semibold py-3 px-6 rounded-lg shadow-lg transition duration-300"
+                    >
+                        Start Trading Now
+                    </a>
+                </div>
+            </div>
+        </section>
+
+        <main class="px-4 py-12 bg-white text-gray-800">
+            <!-- Section: About the CryptoX -->
+            <section class="max-w-5xl mx-auto text-center mb-16">
+                <h2 class="text-3xl font-bold mb-4">Start Trading Securely</h2>
+                <p class="text-lg text-gray-600">
+                    Stay ahead in the digital economy. Trade, track, and manage
+                    your favorite cryptocurrencies with real-time insights,
+                    secure transactions, and powerful tools — all in one place.
+                </p>
+            </section>
+
+            <!-- Article Section:  -->
+            <section class="bg-gray-100 py-16 px-4 sm:px-6">
+                <div class="max-w-7xl mx-auto">
+                    <h2
+                        class="text-3xl font-bold text-center text-gray-800 mb-12"
+                    >
+                        Latest Crypto Insights
+                    </h2>
+
+                    <!-- Responsive Grid Layout -->
+                    <div
+                        class="grid gap-6 sm:grid-cols-1 md:grid-cols-2 lg:grid-cols-3"
+                    >
+                        <!-- Article Card 1 -->
+                        <article
+                            class="bg-white rounded-lg shadow-md overflow-hidden hover:shadow-lg transition duration-300"
+                        >
+                            <img
+                                src="/FSD_class/2547158_Ex2/images/Bitcoin.jpeg"
+                                alt="Bitcoin News"
+                                class="w-full h-48 object-cover"
+                            />
+                            <div class="p-6">
+                                <h3 class="text-xl font-semibold mb-2">
+                                    Bitcoin Hits New High
+                                </h3>
+                                <p class="text-gray-600 mb-4">
+                                    Bitcoin surges past $70,000 as market
+                                    confidence increases after recent ETF
+                                    approvals.
+                                </p>
+                                <a
+                                    href="#"
+                                    class="text-blue-600 font-medium hover:underline"
+                                    >Read More →</a
+                                >
+                            </div>
+                        </article>
+
+                        <!-- Article Card 2 -->
+                        <article
+                            class="bg-white rounded-lg shadow-md overflow-hidden hover:shadow-lg transition duration-300"
+                        >
+                            <img
+                                src="/FSD_class/2547158_Ex2/images/ethereum.jpeg"
+                                alt="Ethereum Update"
+                                class="w-full h-48 object-cover"
+                            />
+                            <div class="p-6">
+                                <h3 class="text-xl font-semibold mb-2">
+                                    Ethereum 2.0 Upgrade
+                                </h3>
+                                <p class="text-gray-600 mb-4">
+                                    The long-awaited Ethereum update boosts
+                                    scalability and reduces gas fees
+                                    significantly.
+                                </p>
+                                <a
+                                    href="#"
+                                    class="text-blue-600 font-medium hover:underline"
+                                    >Read More →</a
+                                >
+                            </div>
+                        </article>
+
+                        <!-- Article Card 3 -->
+                        <article
+                            class="bg-white rounded-lg shadow-md overflow-hidden hover:shadow-lg transition duration-300"
+                        >
+                            <img
+                                src="/FSD_class/2547158_Ex2/images/cryptoX_news.jpeg"
+                                alt="CryptoX Feature"
+                                class="w-full h-48 object-cover"
+                            />
+                            <div class="p-6">
+                                <h3 class="text-xl font-semibold mb-2">
+                                    Why Choose CryptoX?
+                                </h3>
+                                <p class="text-gray-600 mb-4">
+                                    Discover the features that make CryptoX one
+                                    of the safest and fastest exchanges
+                                    globally.
+                                </p>
+                                <a
+                                    href="#"
+                                    class="text-blue-600 font-medium hover:underline"
+                                    >Read More →</a
+                                >
+                            </div>
+                        </article>
+                    </div>
+                </div>
+            </section>
+
+            <section class="my-16 px-4 max-w-4xl mx-auto text-center">
+                <h2 class="text-3xl font-bold mb-6 text-gray-800">
+                    See CryptoX in Action
+                </h2>
+
+                <video
+                    controls
+                    class="w-full rounded-lg shadow-lg"
+                    
+                >
+                    <source
+                        src="/FSD_class/2547158_Ex2/Video/4017225-uhd_3840_2160_30fps.mp4"
+                        type="video/mp4"
+                    />
+                    <track
+                        src="../Video.vtt.txt"
+                        kind="subtitles"
+                        srclang="en"
+                        label="English"
+                        default
+                    />
+                    Your browser does not support the video tag.
+                </video>
+            </section>
+
+            <section class="my-12 px-4 max-w-2xl mx-auto text-center">
+                <h2 class="text-2xl font-semibold text-gray-800 mb-4">
+                    Relax & Explore
+                </h2>
+                <p class="text-gray-600 mb-6">
+                    Enjoy a calm instrumental track while you browse through the
+                    CryptoX platform.
+                </p>
+
+                <audio controls class="w-full">
+                    <source
+                        src="/FSD_class/2547158_Ex2/audio/Kimi no Na wa - Sparkle_default.mp3"
+                        type="audio/mp3"
+                    />
+                    Your browser does not support the audio element.
+                </audio>
+            </section>
+
+            <section class="py-16 bg-gray-50">
+                <div class="max-w-4xl mx-auto text-center px-6">
+                    <!-- Section Title -->
+                    <h2 class="text-4xl font-bold text-gray-800 mb-4">
+                        Global Crypto Reach
+                    </h2>
+                    <p class="text-gray-600 text-lg mb-8">
+                        CryptoX operates in 190+ countries, offering secure
+                        trading around the world. Join our global network of
+                        investors and enthusiasts.
+                    </p>
+
+                    <!-- SVG Icon -->
+                    <div class="flex justify-center mb-6">
+                        <div class="bg-blue-100 p-4 rounded-full shadow-md">
+                            <svg
+                                xmlns="http://www.w3.org/2000/svg"
+                                class="h-12 w-12 text-blue-600"
+                                fill="currentColor"
+                                viewBox="0 0 20 20"
+                            >
+                                <path
+                                    fill-rule="evenodd"
+                                    d="M10 2a6 6 0 00-6 6c0 4.2 6 10 6 10s6-5.8 6-10a6 6 0 00-6-6zm0 8.5a2.5 2.5 0 110-5 2.5 2.5 0 010 5z"
+                                    clip-rule="evenodd"
+                                />
+                            </svg>
+                        </div>
+                    </div>
+
+                    <!-- CTA Button -->
+                    <a
+                        href="#locations"
+                        class="inline-block bg-blue-600 hover:bg-blue-700 text-white font-semibold py-3 px-6 rounded-lg transition duration-300"
+                    >
+                        See Our Locations
+                    </a>
+                </div>
+            </section>
+
+            <section class="bg-white py-16 px-4">
+                <div class="max-w-6xl mx-auto">
+                    <h2
+                        class="text-3xl font-bold text-center text-gray-800 mb-10"
+                    >
+                        Live Market Updates
+                    </h2>
+
+                    <!-- Container for dynamic content -->
+                    <div
+                        id="crypto-list"
+                        class="grid gap-6 sm:grid-cols-1 md:grid-cols-2 lg:grid-cols-3"
+                    >
+                        <!-- Cards will be injected here -->
+                    </div>
+                </div>
+            </section>
+        </main>
+
+        <script>
+            async function fetchCryptoData() {
+                const url =
+                    'https://api.coingecko.com/api/v3/coins/markets?vs_currency=usd&order=market_cap_desc&per_page=6&page=1&sparkline=false';
+
+                try {
+                    const response = await fetch(url);
+                    const data = await response.json();
+
+                    const container = document.getElementById('crypto-list');
+                    container.innerHTML = ''; // Clear old content
+
+                    data.forEach((coin) => {
+                        const card = document.createElement('div');
+                        card.className =
+                            'bg-gray-100 p-6 rounded-lg shadow hover:shadow-lg transition';
+
+                        card.innerHTML = `
+          <div class="flex items-center space-x-4 mb-4">
+            <img src="${coin.image}" alt="${
+                            coin.name
+                        }" class="h-12 w-12 rounded-full" />
+            <div>
+              <h3 class="text-xl font-semibold">${
+                  coin.name
+              } (${coin.symbol.toUpperCase()})</h3>
+              <p class="text-gray-500 text-sm">Rank #${coin.market_cap_rank}</p>
+            </div>
+          </div>
+          <p class="text-lg font-medium text-gray-800 mb-2">Price: $${coin.current_price.toLocaleString()}</p>
+          <p class="${
+              coin.price_change_percentage_24h >= 0
+                  ? 'text-green-600'
+                  : 'text-red-600'
+          } text-sm">
+            24h Change: ${coin.price_change_percentage_24h.toFixed(2)}%
+          </p>
+        `;
+
+                        container.appendChild(card);
+                    });
+                } catch (error) {
+                    console.error('Error fetching data:', error);
+                }
+            }
+
+            // Load data when page loads
+            window.addEventListener('DOMContentLoaded', fetchCryptoData);
+        </script>
+
+        <script>
+            const menuToggle = document.getElementById('menu-toggle');
+            const mobileMenu = document.getElementById('mobile-menu');
+
+            menuToggle.addEventListener('click', () => {
+                mobileMenu.classList.toggle('hidden');
+            });
+        </script>
+    </body>
+</html>

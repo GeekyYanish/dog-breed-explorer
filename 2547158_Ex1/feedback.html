@@ -1,0 +1,247 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Feedback - CryptoX</title>
+
+  <!-- Internal CSS styling -->
+  <style>
+    /* Page base styles */
+    body {
+      font-family: Arial, sans-serif;
+      padding: 20px;
+      max-width: 800px;
+      margin: auto;
+      background: #f3f4f6;
+    }
+
+    /* Back button styling */
+    button.back-btn {
+      margin-bottom: 20px;
+      background-color: #e5e7eb;
+      color: #111827;
+      border: none;
+      padding: 10px 16px;
+      border-radius: 4px;
+      cursor: pointer;
+    }
+
+    /* Main heading style */
+    h2 {
+      text-align: center;
+      color: #2563eb;
+    }
+
+    /* Form container box */
+    .form-box {
+      background: white;
+      padding: 20px;
+      margin-bottom: 30px;
+      border-radius: 8px;
+      box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+    }
+
+    /* Label styling */
+    label {
+      display: block;
+      margin: 12px 0 4px;
+    }
+
+    /* Input and textarea field styling */
+    input, textarea {
+      width: 100%;
+      padding: 10px;
+      font-size: 14px;
+      border: 1px solid #ddd;
+      border-radius: 4px;
+    }
+
+    /* Submit button styling */
+    button.submit-btn {
+      margin-top: 12px;
+      padding: 10px 16px;
+      background-color: #2563eb;
+      color: white;
+      border: none;
+      border-radius: 4px;
+      font-weight: bold;
+      cursor: pointer;
+    }
+
+    /* Displayed feedback box */
+    .feedback {
+      background: white;
+      padding: 15px;
+      border-left: 4px solid #2563eb;
+      margin-bottom: 12px;
+      border-radius: 4px;
+    }
+
+    .feedback strong {
+      display: block;
+      margin-bottom: 4px;
+      color: #111827;
+    }
+
+    /* Subheadings */
+    h3 {
+      color: #111827;
+      margin-top: 30px;
+    }
+  </style>
+</head>
+<body>
+
+  <!-- Back button to return to home -->
+  <button class="back-btn" onclick="goHome()">← Back to Home</button>
+
+  <!-- Page title -->
+  <h2>CryptoX Feedback Page</h2>
+
+  <!-- LOCAL STORAGE FEEDBACK FORM -->
+  <div class="form-box">
+    <h3>Feedback (Saved in LocalStorage)</h3>
+    <form id="localForm">
+      <label for="localName">Name</label>
+      <input type="text" id="localName" required>
+
+      <label for="localComment">Comment</label>
+      <textarea id="localComment" rows="3" required></textarea>
+
+      <button type="submit" class="submit-btn">Submit Local Feedback</button>
+    </form>
+
+    <!-- Area to display localStorage feedbacks -->
+    <div id="localFeedbackList"></div>
+  </div>
+
+  <!-- SESSION STORAGE FEEDBACK FORM -->
+  <div class="form-box">
+    <h3>Feedback (Saved in SessionStorage)</h3>
+    <form id="sessionForm">
+      <label for="sessionName">Name</label>
+      <input type="text" id="sessionName" required>
+
+      <label for="sessionComment">Comment</label>
+      <textarea id="sessionComment" rows="3" required></textarea>
+
+      <button type="submit" class="submit-btn">Submit Session Feedback</button>
+    </form>
+
+    <!-- Area to display sessionStorage feedbacks -->
+    <div id="sessionFeedbackList"></div>
+  </div>
+
+  <!-- JavaScript code -->
+  <script>
+    // Function to navigate to home page
+    function goHome() {
+      window.location.href = "home.html"; // Update this if home page path differs
+    }
+
+    // ---------------- LOCAL STORAGE FUNCTIONALITY ---------------- //
+
+    // Get DOM elements
+    const localForm = document.getElementById("localForm");
+    const localFeedbackList = document.getElementById("localFeedbackList");
+
+    // On form submit, store feedback in localStorage
+    localForm.addEventListener("submit", function(event) {
+      event.preventDefault(); // Prevent page reload
+
+      // Get input values
+      const name = document.getElementById("localName").value.trim();
+      const comment = document.getElementById("localComment").value.trim();
+
+      if (!name || !comment) return; // Do nothing if fields are empty
+
+      const feedback = { name, comment };
+
+      // Get current feedbacks or initialize empty array
+      let feedbacks = JSON.parse(localStorage.getItem("feedbacks")) || [];
+
+      // Add new feedback
+      feedbacks.push(feedback);
+
+      // Save updated feedback list back to localStorage
+      localStorage.setItem("feedbacks", JSON.stringify(feedbacks));
+
+      // Reset form
+      localForm.reset();
+
+      // Refresh display
+      displayLocalFeedbacks();
+    });
+
+    // Function to display all feedbacks stored in localStorage
+    function displayLocalFeedbacks() {
+      const feedbacks = JSON.parse(localStorage.getItem("feedbacks")) || [];
+      localFeedbackList.innerHTML = ""; // Clear existing list
+
+      // Loop and display each feedback
+      feedbacks.forEach(fb => {
+        const div = document.createElement("div");
+        div.className = "feedback";
+        div.innerHTML = `<strong>${fb.name}</strong><p>${fb.comment}</p>`;
+        localFeedbackList.appendChild(div);
+      });
+    }
+
+    // ---------------- SESSION STORAGE FUNCTIONALITY ---------------- //
+
+    // Get DOM elements
+    const sessionForm = document.getElementById("sessionForm");
+    const sessionFeedbackList = document.getElementById("sessionFeedbackList");
+
+    // On form submit, store feedback in sessionStorage
+    sessionForm.addEventListener("submit", function(event) {
+      event.preventDefault();
+
+      // Get input values
+      const name = document.getElementById("sessionName").value.trim();
+      const comment = document.getElementById("sessionComment").value.trim();
+
+      if (!name || !comment) return;
+
+      const feedback = { name, comment };
+
+      // Get current session feedbacks or initialize
+      let feedbacks = JSON.parse(sessionStorage.getItem("sessionFeedbacks")) || [];
+
+      // Add new feedback
+      feedbacks.push(feedback);
+
+      // Save to sessionStorage
+      sessionStorage.setItem("sessionFeedbacks", JSON.stringify(feedbacks));
+
+      // Reset form
+      sessionForm.reset();
+
+      // Refresh display
+      displaySessionFeedbacks();
+    });
+
+    // Function to display all feedbacks stored in sessionStorage
+    function displaySessionFeedbacks() {
+      const feedbacks = JSON.parse(sessionStorage.getItem("sessionFeedbacks")) || [];
+      sessionFeedbackList.innerHTML = ""; // Clear existing list
+
+      // Loop and display each feedback
+      feedbacks.forEach(fb => {
+        const div = document.createElement("div");
+        div.className = "feedback";
+        div.innerHTML = `<strong>${fb.name}</strong><p>${fb.comment}</p>`;
+        sessionFeedbackList.appendChild(div);
+      });
+    }
+
+    // On page load, display existing feedbacks
+    window.onload = function () {
+      displayLocalFeedbacks();
+      displaySessionFeedbacks();
+    };
+  </script>
+
+</body>
+</html>

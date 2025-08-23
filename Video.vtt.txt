@@ -1,0 +1,11 @@
+WEBVTT
+
+00:00:01.000 --> 00:00:04.000: middle line
+<i>Welcome! Today, we're exploring the art of brewing the perfect cup.</i>
+
+00:00:05.500 --> 00:00:09.000: middle line
+<b>First, start with freshly ground, high-quality beans.</b>
+
+00:00:10.000 --> 00:00:14.000
+The water temperature should be just off the boil, around 90-96°C.
+

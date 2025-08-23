@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <!-- Character encoding and responsiveness -->
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+
+  <!-- Page title -->
+  <title>Login - CryptoX</title>
+
+  <!-- Linking external CSS for styling -->
+  <link rel="stylesheet" href="stylesheets/login.css" />
+
+  <!-- JavaScript function to handle login -->
+  <script>
+    function login(event) {
+      event.preventDefault(); // Prevent form from submitting and reloading the page
+
+      // Get user input from email and password fields
+      const enteredEmail = document.getElementById("email").value;
+      const enteredPassword = document.getElementById("password").value;
+
+      // Retrieve the registered user from localStorage (stored during sign up)
+      const storedUser = JSON.parse(localStorage.getItem("user"));
+
+      // Check if any registered user exists
+      if (!storedUser) {
+        alert("No registered user found. Please sign up first.");
+        return;
+      }
+
+      // Compare entered credentials with stored credentials
+      if (
+        enteredEmail === storedUser.email &&
+        enteredPassword === storedUser.password
+      ) {
+        alert("Login successful!");
+        window.location.href = "home.html"; // Redirect to dashboard/home page
+      } else {
+        alert("Invalid email or password."); // Display error message
+      }
+    }
+  </script>
+</head>
+
+<body>
+  <!-- Login form container -->
+  <div class="login-container">
+    <!-- Login form with onsubmit handler -->
+    <form class="login-form" id="loginForm" onsubmit="login(event)">
+      
+      <!-- App logo -->
+      <div class="logo">
+        <img src="https://img.icons8.com/fluency-systems-filled/48/layers.png" alt="Logo" />
+      </div>
+
+      <!-- Heading and welcome message -->
+      <h2>Welcome to <span class="highlight">CryptoX</span></h2>
+      <p>Enter your credentials to access your account.</p>
+
+      <!-- Email input -->
+      <label for="email">Email</label>
+      <input type="email" id="email" placeholder="name@example.com" required />
+
+      <!-- Password input -->
+      <label for="password">Password</label>
+      <input type="password" id="password" required />
+
+      <!-- Login button -->
+      <button type="submit">Login</button>
+
+      <!-- Sign up link -->
+      <p class="signup-text">Don't have an account? <a href="register.html">Sign up</a></p>
+    </form>
+  </div>
+</body>
+</html>
