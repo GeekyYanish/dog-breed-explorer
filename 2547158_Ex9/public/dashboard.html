@@ -1,0 +1,440 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <title>CryptoX Lite — Dashboard</title>
+        <script src="https://cdn.tailwindcss.com"></script>
+        <style>
+            .price-cell {
+                transition: color 0.2s ease-in-out, transform 0.2s ease-in-out;
+            }
+            .price-up {
+                color: #4ade80; /* Tailwind emerald-400 */
+                transform: scale(1.05);
+            }
+            .price-down {
+                color: #f87171; /* Tailwind rose-400 */
+                transform: scale(0.95);
+            }
+        </style>
+    </head>
+    <body class="min-h-screen bg-slate-950 text-slate-100">
+        <header
+            class="p-4 border-b border-slate-800 flex items-center justify-between"
+        >
+            <h1 class="text-xl font-semibold">CryptoX Lite</h1>
+            <div class="flex items-center gap-3">
+                <span id="me" class="text-slate-300 text-sm"></span>
+                <button id="logout" class="px-3 py-2 rounded-xl bg-slate-800">
+                    Logout
+                </button>
+            </div>
+        </header>
+
+        <main class="p-4 grid lg:grid-cols-3 gap-4">
+            <section class="lg:col-span-2 bg-slate-900 rounded-2xl p-4">
+                <div class="flex items-center justify-between mb-3">
+                    <h2 class="text-lg font-semibold">Markets</h2>
+                    <button
+                        id="refresh-coins"
+                        class="px-3 py-2 rounded-xl bg-slate-800"
+                    >
+                        Refresh
+                    </button>
+                </div>
+                <table class="w-full text-left">
+                    <thead>
+                        <tr class="text-slate-400 text-sm">
+                            <th class="py-2">Symbol</th>
+                            <th>Name</th>
+                            <th>Price (USDT)</th>
+                            <th>Action</th>
+                        </tr>
+                    </thead>
+                    <tbody id="coins-body"></tbody>
+                </table>
+            </section>
+
+            <section class="bg-slate-900 rounded-2xl p-4">
+                <div class="flex items-center justify-between mb-3">
+                    <h2 class="text-lg font-semibold">Wallets</h2>
+                    <form id="deposit-form" class="flex gap-2">
+                        <select
+                            name="currency"
+                            id="deposit-currency"
+                            class="flex-1 p-2 rounded-xl bg-slate-800 text-sm"
+                            required
+                        ></select>
+                        <input
+                            name="amount"
+                            type="number"
+                            step="any"
+                            min="0"
+                            placeholder="Amount"
+                            class="flex-1 p-2 rounded-xl bg-slate-800 text-sm w-24"
+                            required
+                        />
+                        <button
+                            type="submit"
+                            class="px-3 py-2 rounded-xl bg-emerald-600 hover:bg-emerald-500 text-sm"
+                        >
+                            Deposit
+                        </button>
+                    </form>
+                </div>
+                <table class="w-full text-left">
+                    <thead>
+                        <tr class="text-slate-400 text-sm">
+                            <th class="py-2">Currency</th>
+                            <th>Balance</th>
+                        </tr>
+                    </thead>
+                    <tbody id="wallets-body"></tbody>
+                </table>
+            </section>
+
+            <section class="lg:col-span-2 bg-slate-900 rounded-2xl p-4">
+                <h2 class="text-lg font-semibold mb-3">Place Order</h2>
+                <form
+                    id="order-form"
+                    class="grid md:grid-cols-7 gap-3 items-center"
+                >
+                    <select
+                        id="side-select"
+                        name="side"
+                        class="p-3 rounded-xl bg-slate-800"
+                        required
+                    >
+                        <option value="BUY">BUY</option>
+                        <option value="SELL">SELL</option>
+                    </select>
+                    <select
+                        name="symbol"
+                        id="symbol-select"
+                        class="p-3 rounded-xl bg-slate-800"
+                        required
+                    ></select>
+                    <input
+                        id="amount-input"
+                        type="number"
+                        step="any"
+                        min="0"
+                        placeholder="Amount"
+                        class="p-3 rounded-xl bg-slate-800"
+                        required
+                    />
+                    <input
+                        type="hidden"
+                        name="quantity"
+                        id="quantity-hidden-input"
+                    />
+                    <select
+                        name="quoteCurrency"
+                        id="quote-currency-select"
+                        class="p-3 rounded-xl bg-slate-800"
+                        required
+                    >
+                        <option value="USDT">With USDT</option>
+                        <option value="INR">With INR</option>
+                    </select>
+                    <button
+                        type="submit"
+                        class="col-span-3 p-3 rounded-xl bg-indigo-600 hover:bg-indigo-500"
+                    >
+                        Submit
+                    </button>
+                </form>
+                <p id="order-msg" class="text-sm mt-2 h-4"></p>
+                <p
+                    id="quantity-preview"
+                    class="text-sm text-slate-400 mt-1 h-4"
+                ></p>
+            </section>
+
+            <section class="bg-slate-900 rounded-2xl p-4">
+                <h2 class="text-lg font-semibold mb-3">Recent Activity</h2>
+                <div class="overflow-x-auto">
+                    <table
+                        class="w-full text-left text-sm border-collapse border border-slate-800 table-fixed"
+                    >
+                        <thead>
+                            <tr class="text-slate-400">
+                                <th
+                                    class="border border-slate-800 px-4 py-2 font-normal"
+                                >
+                                    Date
+                                </th>
+                                <th
+                                    class="border border-slate-800 px-4 py-2 font-normal"
+                                >
+                                    Type
+                                </th>
+                                <th
+                                    class="border border-slate-800 px-4 py-2 font-normal"
+                                >
+                                    Symbol
+                                </th>
+                                <th
+                                    class="border border-slate-800 px-4 py-2 font-normal"
+                                >
+                                    Quantity
+                                </th>
+                                <th
+                                    class="border border-slate-800 px-4 py-2 font-normal"
+                                >
+                                    Price (USDT)
+                                </th>
+                                <th
+                                    class="border border-slate-800 px-4 py-2 font-normal"
+                                >
+                                    Total Value (USDT)
+                                </th>
+                            </tr>
+                        </thead>
+                        <tbody id="activity-body"></tbody>
+                    </table>
+                </div>
+            </section>
+        </main>
+
+        <script>
+            // --- 1. Global Variables & Setup ---
+            const api = (p) => `${location.origin}${p}`;
+            const token = localStorage.getItem('token');
+            if (!token) location.href = '/public/index.html';
+
+            const auth = {
+                headers: {
+                    Authorization: `Bearer ${token}`,
+                    'Content-Type': 'application/json',
+                },
+            };
+
+            let coinPrices = {}; // **FIX 1: Initialize the coin prices cache**
+
+            // --- 2. Core Data Loading Functions ---
+            async function loadMe() {
+                const res = await fetch(api('/api/me'), auth);
+                const me = await res.json();
+                document.getElementById(
+                    'me'
+                ).textContent = `${me.name} • ${me.email}`;
+            }
+
+            // **FIX 2: Use the correct "live" version of loadCoins**
+            async function loadCoins() {
+                const res = await fetch(api('/api/coins'));
+                const coins = await res.json();
+                const tbody = document.getElementById('coins-body');
+
+                tbody.innerHTML = coins
+                    .map((c) => {
+                        const oldPrice = coinPrices[c.symbol] || c.price;
+                        let priceClass = '';
+                        if (c.price > oldPrice) priceClass = 'price-up';
+                        if (c.price < oldPrice) priceClass = 'price-down';
+
+                        coinPrices[c.symbol] = c.price; // Update the cache
+
+                        return `
+                    <tr class="border-t border-slate-800">
+                        <td class="py-3 font-semibold">${c.symbol}</td>
+                        <td>${c.name}</td>
+                        <td class="price-cell ${priceClass}">${c.price.toFixed(
+                            2
+                        )}</td>
+                        <td>
+                            <button data-symbol="${
+                                c.symbol
+                            }" class="px-3 py-1 rounded-lg bg-slate-800 update-price">+1%</button>
+                            <button data-symbol="${
+                                c.symbol
+                            }" class="px-3 py-1 rounded-lg bg-slate-800 update-price-down">-1%</button>
+                        </td>
+                    </tr>`;
+                    })
+                    .join('');
+
+                setTimeout(() => {
+                    document.querySelectorAll('.price-cell').forEach((cell) => {
+                        cell.classList.remove('price-up', 'price-down');
+                    });
+                }, 500);
+
+                // Update symbol dropdowns
+                const symbolSelect = document.getElementById('symbol-select');
+                symbolSelect.innerHTML = coins
+                    .map(
+                        (c) =>
+                            `<option value="${c.symbol}">${c.symbol}</option>`
+                    )
+                    .join('');
+
+                const depositSelect =
+                    document.getElementById('deposit-currency');
+                const depositOptions = coins.map(
+                    (c) => `<option value="${c.symbol}">${c.symbol}</option>`
+                );
+                depositOptions.unshift('<option value="INR">INR</option>');
+                depositOptions.unshift('<option value="USDT">USDT</option>');
+                depositSelect.innerHTML = depositOptions.join('');
+            }
+
+            async function loadWallets() {
+                const res = await fetch(api('/api/wallets'), auth);
+                const wallets = await res.json();
+                document.getElementById('wallets-body').innerHTML = wallets
+                    .map(
+                        (w) => `
+                    <tr class="border-t border-slate-800">
+                        <td class="py-3 font-semibold">${w.currency}</td>
+                        <td>${Number(w.balance).toFixed(4)}</td>
+                    </tr>`
+                    )
+                    .join('');
+            }
+
+            // (In dashboard.html > <script>)
+            async function loadActivity() {
+                const res = await fetch(api('/api/orders'), auth);
+                const items = await res.json();
+                document.getElementById('activity-body').innerHTML = items
+                    .map((o) => {
+                        const isBuy = o.side === 'BUY';
+                        const typeClass = isBuy
+                            ? 'text-emerald-400'
+                            : 'text-rose-400';
+                        const totalValue = (o.quantity * o.price).toFixed(2);
+                        const date = new Date(o.created_at).toLocaleString();
+                        return `
+        <tr>
+            <td class="border border-slate-800 px-4 py-2 text-slate-400">${date}</td>
+            <td class="border border-slate-800 px-4 py-2 font-semibold ${typeClass}">${
+                            o.side
+                        }</td>
+            <td class="border border-slate-800 px-4 py-2 font-semibold">${
+                o.symbol
+            }</td>
+            <td class="border border-slate-800 px-4 py-2">${Number(
+                o.quantity
+            ).toFixed(4)}</td>
+            <td class="border border-slate-800 px-4 py-2">${o.price.toFixed(
+                2
+            )}</td>
+            <td class="border border-slate-800 px-4 py-2">$${totalValue}</td>
+        </tr>`;
+                    })
+                    .join('');
+            }
+
+            // --- 3. Helper Functions ---
+            function updateQuantity() {
+                const amount = parseFloat(
+                    document.getElementById('amount-input').value
+                );
+                const symbol = document.getElementById('symbol-select').value;
+                const side = document.getElementById('side-select').value;
+                const price = coinPrices[symbol];
+                const quantityPreview =
+                    document.getElementById('quantity-preview');
+                const hiddenInput = document.getElementById(
+                    'quantity-hidden-input'
+                );
+
+                if (!amount || !price || amount <= 0) {
+                    hiddenInput.value = '';
+                    quantityPreview.textContent = '';
+                    return;
+                }
+
+                const calculatedQuantity = amount / price;
+                hiddenInput.value = calculatedQuantity.toFixed(8);
+
+                const actionText = side === 'BUY' ? 'get' : 'sell';
+                quantityPreview.textContent = `You will ${actionText} ≈ ${calculatedQuantity.toFixed(
+                    4
+                )} ${symbol}`;
+            }
+
+            // --- 4. Event Listeners ---
+            function setupEventListeners() {
+                document.getElementById('logout').onclick = () => {
+                    localStorage.removeItem('token');
+                    location.href = '/public/index.html';
+                };
+
+                document
+                    .getElementById('deposit-form')
+                    .addEventListener('submit', async (e) => {
+                        e.preventDefault();
+                        const form = e.target;
+                        const currency = form.elements.currency.value;
+                        const amount = parseFloat(form.elements.amount.value);
+                        if (!currency || !amount || amount <= 0) {
+                            return alert(
+                                'Please select a currency and enter a valid positive amount.'
+                            );
+                        }
+                        await fetch(api('/api/wallets/deposit'), {
+                            method: 'POST',
+                            headers: auth.headers,
+                            body: JSON.stringify({ currency, amount }),
+                        });
+                        loadWallets();
+                        form.reset();
+                    });
+
+                document
+                    .getElementById('order-form')
+                    .addEventListener('submit', async (e) => {
+                        e.preventDefault();
+                        const data = Object.fromEntries(new FormData(e.target));
+                        data.quantity = parseFloat(data.quantity);
+                        const res = await fetch(api('/api/orders'), {
+                            method: 'POST',
+                            headers: auth.headers,
+                            body: JSON.stringify(data),
+                        });
+                        const json = await res.json();
+                        const msg = document.getElementById('order-msg');
+                        if (!res.ok) {
+                            msg.textContent = json.error || 'Order failed';
+                            msg.className = 'text-rose-400 text-sm mt-2 h-4';
+                            return;
+                        }
+                        msg.textContent = `Order #${json.id} filled`;
+                        msg.className = 'text-emerald-400 text-sm mt-2 h-4';
+
+                        e.target.reset(); // Clear form fields
+                        loadWallets();
+                        loadActivity();
+                        updateQuantity(); // Clear preview text
+                    });
+
+                // Listeners for the amount->quantity calculation
+                document
+                    .getElementById('amount-input')
+                    .addEventListener('input', updateQuantity);
+                document
+                    .getElementById('symbol-select')
+                    .addEventListener('change', updateQuantity);
+                document
+                    .getElementById('side-select')
+                    .addEventListener('change', updateQuantity);
+            }
+
+            // --- 5. Initial Page Load ---
+            async function init() {
+                await loadMe();
+                await loadCoins(); // Load coins first to populate prices and dropdowns
+                loadWallets();
+                loadActivity();
+                setupEventListeners();
+                setInterval(loadCoins, 3000); // **FIX 3: Start the live price updates**
+            }
+
+            init(); // Run the application
+        </script>
+    </body>
+</html>
